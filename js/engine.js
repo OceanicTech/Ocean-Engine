@@ -7,7 +7,7 @@ window.onload = function() {
     function draw() {
         // Aquí se dibujarán los objetos en el canvas
         context.clearRect(0, 0, canvas.width, canvas.height);
-        context.fillStyle = 'white';
+        context.fillStyle = 'red';
         context.fillRect(50, 50, 100, 100); // Ejemplo de un rectángulo
     }
 
@@ -94,6 +94,7 @@ function changeObjectSize(event) {
         selectedObject.height = newSize;
         drawObjects();
     }
+}
 });
     }
 }

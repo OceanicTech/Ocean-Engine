@@ -8,7 +8,7 @@ function createObject(x, y) {
         y: y,
         width: 50,
         height: 50,
-        color: 'white'
+        color: 'red'
     };
     objects.push(newObject);
     drawObjects();
@@ -120,4 +120,4 @@ canvas.addEventListener('mousedown', function(e) {
         canvas.addEventListener('mousemove', moveObject);
         canvas.addEventListener('mouseup', stopMove);
     }
-});
+}););
