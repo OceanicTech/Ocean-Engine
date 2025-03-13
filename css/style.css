@@ -1,0 +1,38 @@
+body {
+    margin: 0;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+}
+
+#canvas {
+    background: rgb(162, 236, 243);
+    width: 1100px;
+    height: 590px;
+    border-radius: 15px;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-color: black;
+    border-width: 2px;
+    border-style: solid;
+}
+
+#menu {
+    background: rgb(170, 170, 170);
+    border-color: black;
+    top: 525px;
+    left: 360px;
+    transform: translate(455px, 590px);
+}
+
+#menu_float {
+    background: rgb(48, 48, 48);
+    width: 300px;
+    height: 400px;
+    border-radius: 10px;
+    position: absolute;
+    border-color: black;
+    border-width: 1px;
+    border-style: solid;
+}
