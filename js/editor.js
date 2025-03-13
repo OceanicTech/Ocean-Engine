@@ -34,11 +34,9 @@ let menuOffsetX = 0;
 let menuOffsetY = 0;
 
 menuFloat.addEventListener('mousedown', function(e) {
-    if (e.target === menuFloat) {
-        isDraggingMenu = true;
-        menuOffsetX = e.clientX - menuFloat.offsetLeft;
-        menuOffsetY = e.clientY - menuFloat.offsetTop;
-    }
+    isDraggingMenu = true;
+    menuOffsetX = e.clientX - menuFloat.offsetLeft;
+    menuOffsetY = e.clientY - menuFloat.offsetTop;
 });
 
 document.addEventListener('mousemove', function(e) {
@@ -143,5 +141,7 @@ function isCornerClicked(mouseX, mouseY, obj) {
     return (
         (mouseX >= obj.x + obj.width - cornerSize && mouseX <= obj.x + obj.width &&
         mouseY >= obj.y + obj.height - cornerSize && mouseY <= obj.y + obj.height)
+    );
+}cornerSize && mouseY <= obj.y + obj.height)
     );
 }
