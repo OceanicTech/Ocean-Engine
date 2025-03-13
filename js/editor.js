@@ -51,31 +51,24 @@ document.addEventListener('mouseup', function() {
 });
 
 // Función para crear un nuevo objeto desde el botón del menú flotante
-const createButton = document.getElementById('createObjectBtn');
-createButton.onclick = function() {
+function CreateObj() {
     const canvas = document.getElementById('canvas');
-    const rect = canvas.getBoundingClientRect();
-    const centerX = (rect.width / 2) - 25; // 50px width / 2
-    const centerY = (rect.height / 2) - 25; // 50px height / 2
+    const centerX = (canvas.width / 2) - 25; // 50px width / 2
+    const centerY = (canvas.height / 2) - 25; // 50px height / 2
     createObject(centerX, centerY);
-};
+}
 
 // Funcionalidad para cambiar color del objeto seleccionado
-const colorInput = document.createElement('input');
-colorInput.type = 'color';
+const colorInput = document.getElementById('colorPicker');
 colorInput.oninput = function(e) {
     if (selectedObject) {
         selectedObject.color = e.target.value;
         drawObjects();
     }
 };
-menuFloat.appendChild(colorInput);
 
 // Funcionalidad para cambiar tamaño del objeto seleccionado
-const sizeInput = document.createElement('input');
-sizeInput.type = 'range';
-sizeInput.min = 10;
-sizeInput.max = 200;
+const sizeInput = document.getElementById('sizeSlider');
 sizeInput.oninput = function(e) {
     if (selectedObject) {
         let newSize = parseInt(e.target.value, 10);
@@ -84,7 +77,6 @@ sizeInput.oninput = function(e) {
         drawObjects();
     }
 };
-menuFloat.appendChild(sizeInput);
 
 // Evento para seleccionar y mover objeto
 const canvas = document.getElementById('canvas');
@@ -115,6 +107,14 @@ canvas.addEventListener('mousedown', function(e) {
         }
 
         function stopMove() {
+            canvas.removeEventListener('mousemove', moveObject);
+            canvas.removeEventListener('mouseup', stopMove);
+        }
+
+        canvas.addEventListener('mousemove', moveObject);
+        canvas.addEventListener('mouseup', stopMove);
+    }
+});on stopMove() {
             canvas.removeEventListener('mousemove', moveObject);
             canvas.removeEventListener('mouseup', stopMove);
         }
