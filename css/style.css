@@ -2,7 +2,6 @@ body {
     margin: 0;
     overflow: hidden;
     font-family: Arial, sans-serif;
-    background: grey;
 }
 
 #canvas {
@@ -37,4 +36,5 @@ body {
     border-width: 1px;
     border-style: solid;
     cursor: move; /* Añadir cursor de movimiento */
+}}or de movimiento */
 }}

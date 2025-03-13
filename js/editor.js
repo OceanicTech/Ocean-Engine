@@ -2,13 +2,13 @@ let selectedObject = null;
 let objects = [];
 
 // Función para crear un nuevo objeto en el canvas
-function createObject(x, y) {
+function createObject(x, y, color = 'red', width = 50, height = 50) {
     let newObject = {
         x: x,
         y: y,
-        width: 50,
-        height: 50,
-        color: 'red'
+        width: width,
+        height: height,
+        color: color
     };
     objects.push(newObject);
     drawObjects();
@@ -50,13 +50,15 @@ document.addEventListener('mouseup', function() {
     isDragging = false;
 });
 
-// Funcionalidad para crear un nuevo objeto desde el menú flotante
-const createButton = document.createElement('button');
-createButton.innerText = 'Crear Objeto';
+// Función para crear un nuevo objeto desde el botón del menú flotante
+const createButton = document.getElementById('createObjectBtn');
 createButton.onclick = function() {
-    createObject(100, 100);
+    const canvas = document.getElementById('canvas');
+    const rect = canvas.getBoundingClientRect();
+    const centerX = (rect.width / 2) - 25; // 50px width / 2
+    const centerY = (rect.height / 2) - 25; // 50px height / 2
+    createObject(centerX, centerY);
 };
-menuFloat.appendChild(createButton);
 
 // Funcionalidad para cambiar color del objeto seleccionado
 const colorInput = document.createElement('input');
@@ -120,4 +122,4 @@ canvas.addEventListener('mousedown', function(e) {
         canvas.addEventListener('mousemove', moveObject);
         canvas.addEventListener('mouseup', stopMove);
     }
-}););
+});
