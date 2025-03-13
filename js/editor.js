@@ -8,7 +8,9 @@ function createObject(x, y, color = 'red', width = 50, height = 50) {
         y: y,
         width: width,
         height: height,
-        color: color
+        color: color,
+        isResizing: false,
+        isDragging: false
     };
     objects.push(newObject);
     drawObjects();
@@ -27,27 +29,27 @@ function drawObjects() {
 
 // Lógica de movimiento del menú flotante
 const menuFloat = document.getElementById('menu_float');
-let isDragging = false;
-let dragOffsetX = 0;
-let dragOffsetY = 0;
+let isDraggingMenu = false;
+let menuOffsetX = 0;
+let menuOffsetY = 0;
 
 menuFloat.addEventListener('mousedown', function(e) {
     if (e.target === menuFloat) {
-        isDragging = true;
-        dragOffsetX = e.clientX - menuFloat.offsetLeft;
-        dragOffsetY = e.clientY - menuFloat.offsetTop;
+        isDraggingMenu = true;
+        menuOffsetX = e.clientX - menuFloat.offsetLeft;
+        menuOffsetY = e.clientY - menuFloat.offsetTop;
     }
 });
 
 document.addEventListener('mousemove', function(e) {
-    if (isDragging) {
-        menuFloat.style.left = (e.clientX - dragOffsetX) + 'px';
-        menuFloat.style.top = (e.clientY - dragOffsetY) + 'px';
+    if (isDraggingMenu) {
+        menuFloat.style.left = (e.clientX - menuOffsetX) + 'px';
+        menuFloat.style.top = (e.clientY - menuOffsetY) + 'px';
     }
 });
 
 document.addEventListener('mouseup', function() {
-    isDragging = false;
+    isDraggingMenu = false;
 });
 
 // Función para crear un nuevo objeto desde el botón del menú flotante
@@ -93,28 +95,40 @@ canvas.addEventListener('mousedown', function(e) {
         const offsetX = mouseX - selectedObject.x;
         const offsetY = mouseY - selectedObject.y;
 
+        if (isCornerClicked(mouseX, mouseY, selectedObject)) {
+            selectedObject.isResizing = true;
+        } else {
+            selectedObject.isDragging = true;
+        }
+
         function moveObject(e) {
-            let newX = e.clientX - rect.left - offsetX;
-            let newY = e.clientY - rect.top - offsetY;
+            if (selectedObject.isDragging) {
+                let newX = e.clientX - rect.left - offsetX;
+                let newY = e.clientY - rect.top - offsetY;
 
-            // Asegurar que el objeto no salga del canvas
-            newX = Math.max(0, Math.min(newX, canvas.width - selectedObject.width));
-            newY = Math.max(0, Math.min(newY, canvas.height - selectedObject.height));
+                // Asegurar que el objeto no salga del canvas
+                newX = Math.max(0, Math.min(newX, canvas.width - selectedObject.width));
+                newY = Math.max(0, Math.min(newY, canvas.height - selectedObject.height));
 
-            selectedObject.x = newX;
-            selectedObject.y = newY;
+                selectedObject.x = newX;
+                selectedObject.y = newY;
+            } else if (selectedObject.isResizing) {
+                let newWidth = e.clientX - rect.left - selectedObject.x;
+                let newHeight = e.clientY - rect.top - selectedObject.y;
+
+                // Asegurar que el objeto no salga del canvas
+                newWidth = Math.max(10, Math.min(newWidth, canvas.width - selectedObject.x));
+                newHeight = Math.max(10, Math.min(newHeight, canvas.height - selectedObject.y));
+
+                selectedObject.width = newWidth;
+                selectedObject.height = newHeight;
+            }
             drawObjects();
         }
 
         function stopMove() {
-            canvas.removeEventListener('mousemove', moveObject);
-            canvas.removeEventListener('mouseup', stopMove);
-        }
-
-        canvas.addEventListener('mousemove', moveObject);
-        canvas.addEventListener('mouseup', stopMove);
-    }
-});on stopMove() {
+            selectedObject.isDragging = false;
+            selectedObject.isResizing = false;
             canvas.removeEventListener('mousemove', moveObject);
             canvas.removeEventListener('mouseup', stopMove);
         }
@@ -123,3 +137,11 @@ canvas.addEventListener('mousedown', function(e) {
         canvas.addEventListener('mouseup', stopMove);
     }
 });
+
+function isCornerClicked(mouseX, mouseY, obj) {
+    const cornerSize = 10;
+    return (
+        (mouseX >= obj.x + obj.width - cornerSize && mouseX <= obj.x + obj.width &&
+        mouseY >= obj.y + obj.height - cornerSize && mouseY <= obj.y + obj.height)
+    );
+}
