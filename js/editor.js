@@ -2,7 +2,7 @@ let selectedObject = null;
 let objects = [];
 
 // Función para crear un nuevo objeto en el canvas
-function createObject(x, y, color = 'red', width = 50, height = 50) {
+function createObject(x, y, color = 'red', width = 25, height = 25) {
     let newObject = {
         x: x,
         y: y,
@@ -55,8 +55,8 @@ document.addEventListener('mouseup', function() {
 // Función para crear un nuevo objeto desde el botón del menú flotante
 function CreateObj() {
     const canvas = document.getElementById('canvas');
-    const centerX = (canvas.width / 2) - 25; // 50px width / 2
-    const centerY = (canvas.height / 2) - 25; // 50px height / 2
+    const centerX = (canvas.width / 2) - 12.5; // 25px width / 2
+    const centerY = (canvas.height / 2) - 12.5; // 25px height / 2
     createObject(centerX, centerY);
 }
 

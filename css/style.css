@@ -2,39 +2,36 @@ body {
     margin: 0;
     overflow: hidden;
     font-family: Arial, sans-serif;
-     background: rgb(92, 92, 92)
 }
 
 #canvas {
     background: rgb(162, 236, 243);
-    width: 1100px;
-    height: 590px;
+    width: 1100px; /* Ajustar el ancho del canvas */
+    height: 590px; /* Ajustar la altura del canvas */
+    display: block;
     border-radius: 15px;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    border-color: black;
-    border-width: 2px;
-    border-style: solid;
-}
-
-#menu {
-    background: rgb(170, 170, 170);
-    border-color: black;
-    top: 525px;
-    left: 360px;
-    transform: translate(455px, 590px);
+    border: 2px solid black;
 }
 
 #menu_float {
     background: rgb(48, 48, 48);
     width: 300px;
-    height: 400px;
+    height: 150px;
     border-radius: 10px;
     position: absolute;
+    top: 10px;
+    left: 10px;
     border-color: black;
     border-width: 1px;
+    border-style: solid;
+    padding: 10px;
+    box-sizing: border-box;
+    cursor: move;
+}idth: 1px;
     border-style: solid;
     cursor: move; /* Añadir cursor de movimiento */
 }
