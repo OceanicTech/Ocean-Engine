@@ -35,4 +35,5 @@ body {
     border-color: black;
     border-width: 1px;
     border-style: solid;
+    cursor: move; /* Añadir cursor de movimiento */
 }

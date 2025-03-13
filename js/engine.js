@@ -30,20 +30,6 @@ function start() {
 function save() {
     // Función para guardar el juego
 }
-jectSize(event) {
-    if (selectedObject) {
-        let size = parseInt(event.target.value, 10);
-        selectedObject.width = size;
-        selectedObject.height = size;
-        drawObjects();
-    }
-}
-
-// Limpiar selección
-function clearSelection() {
-    selectedObject = null;
-    drawObjects();
-}
 
 // Evento para seleccionar objeto
 canvas.addEventListener('mousedown', function(e) {
@@ -55,22 +41,6 @@ canvas.addEventListener('mousedown', function(e) {
         mouseY >= obj.y && mouseY <= obj.y + obj.height
     );
     drawObjects();
-});ct.y;
-
-        function moveObject(e) {
-            selectedObject.x = e.clientX - rect.left - offsetX;
-            selectedObject.y = e.clientY - rect.top - offsetY;
-            drawObjects();
-        }
-
-        function stopMove() {
-            canvas.removeEventListener('mousemove', moveObject);
-            canvas.removeEventListener('mouseup', stopMove);
-        }
-
-        canvas.addEventListener('mousemove', moveObject);
-        canvas.addEventListener('mouseup', stopMove);
-    }
 });
 
 // Cambiar color del objeto seleccionado
@@ -87,6 +57,44 @@ function changeObjectSize(size) {
         selectedObject.width = size;
         selectedObject.height = size;
         drawObjects();
+    }
+}
+
+// Iniciar el juego con un objeto de prueba
+function startGame() {
+    objects = [];
+    createObject(100, 100);
+    drawObjects();
+}
+
+// Cargar el script Lua cuando inicie el juego
+window.onload = function() {
+    startGame();
+    loadLuaScriptAndRun();
+};
+
+// Desmarcar objeto seleccionado
+function clearSelection() {
+    selectedObject = null;
+    drawObjects();
+}
+
+// Cambiar color del objeto seleccionado
+function changeObjectColor(event) {
+    if (selectedObject) {
+        selectedObject.color = event.target.value;
+        drawObjects();
+    }
+}
+
+function changeObjectSize(event) {
+    if (selectedObject) {
+        let newSize = parseInt(event.target.value, 10);
+        selectedObject.width = newSize;
+        selectedObject.height = newSize;
+        drawObjects();
+    }
+});
     }
 }
 
